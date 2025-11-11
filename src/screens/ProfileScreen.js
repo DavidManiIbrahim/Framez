@@ -3,6 +3,7 @@ import { View, Text, FlatList, Image, StyleSheet, Button, Alert } from 'react-na
 import * as ImagePicker from 'expo-image-picker';
 import { useAuth } from '../context/AuthContext';
 import { supabase, AVATARS_BUCKET } from '../lib/supabase';
+import { useTheme } from '@react-navigation/native';
 import dayjs from 'dayjs';
 
 function PostItem({ item }) {
@@ -21,6 +22,7 @@ export default function ProfileScreen() {
   const { session, signOut } = useAuth();
   const [posts, setPosts] = useState([]);
   const [avatarLoading, setAvatarLoading] = useState(false);
+  const { colors, dark } = useTheme();
 
   const user = session?.user;
   const name = user?.user_metadata?.name || user?.email || 'User';
@@ -79,7 +81,7 @@ export default function ProfileScreen() {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
       <View style={styles.headerRow}>
         {avatar ? (
           <Image source={{ uri: avatar }} style={styles.avatar} />
@@ -87,8 +89,8 @@ export default function ProfileScreen() {
           <View style={[styles.avatar, styles.avatarFallback]} />
         )}
         <View style={{ flex: 1 }}>
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.email}>{user?.email}</Text>
+          <Text style={[styles.name, { color: colors.text }]}>{name}</Text>
+          <Text style={[styles.email, { color: dark ? '#fff' : '#666' }]}>{user?.email}</Text>
         </View>
         <View style={{ gap: 8 }}>
           <Button title={avatarLoading ? 'Updating...' : 'Change Avatar'} onPress={onChangeAvatar} disabled={avatarLoading} />
@@ -111,10 +113,10 @@ const styles = StyleSheet.create({
   avatar: { width: 64, height: 64, borderRadius: 32, marginRight: 12, backgroundColor: '#eee' },
   avatarFallback: { backgroundColor: '#ddd' },
   name: { fontSize: 18, fontWeight: '600' },
-  email: { color: '#666' },
+  email: {},
   post: { marginBottom: 16 },
   header: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 },
   text: { fontSize: 16, marginBottom: 8 },
   image: { height: 240, borderRadius: 8 },
-  time: { color: '#666' },
+  time: {},
 });

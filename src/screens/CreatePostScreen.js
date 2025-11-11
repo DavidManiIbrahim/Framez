@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Image, StyleSheet, Alert } from 'react-native';
+import { useTheme } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { supabase, POSTS_BUCKET } from '../lib/supabase';
@@ -19,6 +20,7 @@ export default function CreatePostScreen() {
   const [text, setText] = useState('');
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { colors, dark } = useTheme();
 
   const onPickImage = async () => {
     const asset = await pickImageAsync();
@@ -66,13 +68,14 @@ export default function CreatePostScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <TextInput
         placeholder="What's happening?"
         value={text}
         onChangeText={setText}
         multiline
-        style={styles.input}
+        style={[styles.input, { color: colors.text, borderColor: dark ? '#444' : '#ddd' }]}
+        placeholderTextColor={dark ? '#aaa' : '#888'}
       />
       {image && <Image source={{ uri: image.uri }} style={styles.image} />}
       <View style={styles.row}>
@@ -88,7 +91,6 @@ const styles = StyleSheet.create({
   container: { flex: 1, padding: 16 },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
     borderRadius: 8,
     padding: 12,
     minHeight: 100,

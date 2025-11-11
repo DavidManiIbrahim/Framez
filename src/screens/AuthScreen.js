@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { useTheme } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
 
 export default function AuthScreen() {
   const { signIn, signUp } = useAuth();
+  const { colors, dark } = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -15,13 +17,13 @@ export default function AuthScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Framez</Text>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <Text style={[styles.title, { color: colors.text }]}>Framez</Text>
       {mode === 'signup' && (
-        <TextInput placeholder="Name" value={name} onChangeText={setName} style={styles.input} />
+        <TextInput placeholder="Name" value={name} onChangeText={setName} style={[styles.input, { color: colors.text, borderColor: dark ? '#444' : '#ddd' }]} placeholderTextColor={dark ? '#aaa' : '#888'} />
       )}
-      <TextInput placeholder="Email" autoCapitalize="none" value={email} onChangeText={setEmail} style={styles.input} />
-      <TextInput placeholder="Password" secureTextEntry value={password} onChangeText={setPassword} style={styles.input} />
+      <TextInput placeholder="Email" autoCapitalize="none" value={email} onChangeText={setEmail} style={[styles.input, { color: colors.text, borderColor: dark ? '#444' : '#ddd' }]} placeholderTextColor={dark ? '#aaa' : '#888'} />
+      <TextInput placeholder="Password" secureTextEntry value={password} onChangeText={setPassword} style={[styles.input, { color: colors.text, borderColor: dark ? '#444' : '#ddd' }]} placeholderTextColor={dark ? '#aaa' : '#888'} />
       <Button title={mode === 'login' ? 'Log In' : 'Sign Up'} onPress={onSubmit} />
       <View style={{ height: 12 }} />
       <Button
@@ -37,11 +39,9 @@ const styles = StyleSheet.create({
   title: { fontSize: 32, fontWeight: '600', textAlign: 'center', marginBottom: 24 },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 10,
     marginBottom: 12,
   },
 });
-

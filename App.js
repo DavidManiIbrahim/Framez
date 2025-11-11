@@ -13,8 +13,8 @@ function Root() {
 
   if (sessionLoading) {
     return (
-      <View style={[styles.container, styles.center]}>
-        <ActivityIndicator size="large" />
+      <View style={[styles.container, styles.center, { backgroundColor: navTheme.colors.background }]}>
+        <ActivityIndicator size="large" color={navTheme.colors.text} />
       </View>
     );
   }

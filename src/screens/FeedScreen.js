@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, Text, Image, StyleSheet, RefreshControl } from 'react-native';
+import { useTheme } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import { supabase } from '../lib/supabase';
 
 function PostItem({ item }) {
+  const { colors, dark } = useTheme();
+  const subtle = dark ? '#fff' : '#666';
   return (
     <View style={styles.post}>
       <View style={styles.header}>
-        <Text style={styles.author}>{item.author_name}</Text>
-        <Text style={styles.time}>{dayjs(item.created_at).format('MMM D, HH:mm')}</Text>
+        <Text style={[styles.author, { color: colors.text }]}>{item.author_name}</Text>
+        <Text style={[styles.time, { color: subtle }]}>{dayjs(item.created_at).format('MMM D, HH:mm')}</Text>
       </View>
-      {item.content_text ? <Text style={styles.text}>{item.content_text}</Text> : null}
+      {item.content_text ? <Text style={[styles.text, { color: colors.text }]}>{item.content_text}</Text> : null}
       {item.image_url ? <Image source={{ uri: item.image_url }} style={styles.image} /> : null}
     </View>
   );
@@ -19,6 +22,7 @@ function PostItem({ item }) {
 export default function FeedScreen() {
   const [posts, setPosts] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const { colors } = useTheme();
 
   const fetchPosts = async () => {
     setRefreshing(true);
@@ -45,7 +49,7 @@ export default function FeedScreen() {
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
       <FlatList
         data={posts}
         keyExtractor={(item) => String(item.id)}
