@@ -4,14 +4,24 @@ import FeedScreen from '../screens/FeedScreen';
 import CreatePostScreen from '../screens/CreatePostScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import { Ionicons } from '@expo/vector-icons';
+import { useThemeMode } from '../context/ThemeContext';
 
 const Tab = createBottomTabNavigator();
 
 export default function Tabs() {
+  const { theme, toggleTheme } = useThemeMode();
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerTitleAlign: 'center',
+        headerRight: () => (
+          <Ionicons
+            name={theme === 'dark' ? 'sunny' : 'moon'}
+            size={22}
+            style={{ marginRight: 16 }}
+            onPress={toggleTheme}
+          />
+        ),
         tabBarIcon: ({ color, size }) => {
           if (route.name === 'Feed') return <Ionicons name="home" size={size} color={color} />;
           if (route.name === 'Create') return <Ionicons name="add-circle" size={size} color={color} />;
@@ -25,4 +35,3 @@ export default function Tabs() {
     </Tab.Navigator>
   );
 }
-

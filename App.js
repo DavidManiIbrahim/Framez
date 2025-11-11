@@ -5,9 +5,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import Tabs from './src/navigation/Tabs';
 import { AuthProvider, useAuth } from './src/context/AuthContext';
 import AuthScreen from './src/screens/AuthScreen';
+import { ThemeProvider, useThemeMode } from './src/context/ThemeContext';
 
 function Root() {
   const { sessionLoading, session } = useAuth();
+  const { navTheme } = useThemeMode();
 
   if (sessionLoading) {
     return (
@@ -18,7 +20,7 @@ function Root() {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={navTheme}>
       {session ? <Tabs /> : <AuthScreen />}
     </NavigationContainer>
   );
@@ -26,17 +28,18 @@ function Root() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Root />
-      <StatusBar style="auto" />
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <Root />
+        <StatusBar style="auto" />
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   center: { alignItems: 'center', justifyContent: 'center' },
 });

@@ -9,6 +9,7 @@ Framez is a simple, Instagram-inspired social app built with Expo (React Native)
 - Create posts: write text and attach an image from the gallery
 - Profile: see your name, email, avatar, and your posts
 - Change avatar: upload and update your profile picture
+- Dark mode: toggle light/dark theme via the header button
 - Realtime-ready: Supabase Realtime enabled on `posts` table
 - RLS-secure: Row Level Security for tables and storage objects
 
@@ -52,6 +53,9 @@ Framez is a simple, Instagram-inspired social app built with Expo (React Native)
    - Web: open `http://localhost:19010/`
    - Expo Go (mobile): scan the QR from the terminal (use the IP shown).
 
+5. Optional: Dark mode
+   - Use the header icon (moon/sun) to toggle the theme.
+
 ## Usage
 
 - Sign up with email, password, and optional name (used as author name).
@@ -88,6 +92,16 @@ Framez is a simple, Instagram-inspired social app built with Expo (React Native)
 - Expo Go: use the QR code from `npx expo start` to test on devices.
 - Appetize.io: build a web preview or use Expo-generated bundles to upload and share a live demo.
 
+## Demo & Links
+
+- Demo video: Add your 2–3 minute demo link here.
+- Appetize link: Add your hosted Appetize link here.
+
+## Backend Choice
+
+- Backend: Supabase (Auth, Postgres, Storage, Realtime)
+- Rationale: rapid setup, first-class auth and storage with simple client SDK.
+
 ## Notes
 
 - Secrets: `.env` is gitignored; do not commit real keys.
@@ -96,4 +110,4 @@ Framez is a simple, Instagram-inspired social app built with Expo (React Native)
   - Ensure environment variables are loaded (restart the dev server after changes).
   - Confirm buckets exist and are public.
   - Verify RLS policies are applied and `auth.uid()` is available.
-
+  - If dark mode doesn’t toggle, confirm the header button is visible and try reloading the app.
