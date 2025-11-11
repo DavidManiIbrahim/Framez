@@ -1,5 +1,6 @@
+import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import Tabs from './src/navigation/Tabs';
 import { AuthProvider, useAuth } from './src/context/AuthContext';
@@ -9,7 +10,11 @@ function Root() {
   const { sessionLoading, session } = useAuth();
 
   if (sessionLoading) {
-    return <View style={styles.container} />;
+    return (
+      <View style={[styles.container, styles.center]}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
   }
 
   return (
@@ -33,5 +38,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  center: { alignItems: 'center', justifyContent: 'center' },
 });
-import 'react-native-gesture-handler';

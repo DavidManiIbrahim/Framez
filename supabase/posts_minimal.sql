@@ -22,3 +22,7 @@ insert into storage.buckets (id, name, public)
 values ('posts', 'posts', true)
 on conflict (id) do nothing;
 
+-- Create public storage bucket for avatars
+insert into storage.buckets (id, name, public)
+values ('avatars', 'avatars', true)
+on conflict (id) do nothing;

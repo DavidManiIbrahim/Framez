@@ -11,5 +11,5 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-export const POSTS_BUCKET = 'posts';
-
+export const POSTS_BUCKET = process.env.EXPO_PUBLIC_POSTS_BUCKET || 'posts';
+export const AVATARS_BUCKET = process.env.EXPO_PUBLIC_AVATARS_BUCKET || 'avatars';
