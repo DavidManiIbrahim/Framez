@@ -1,12 +1,30 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import Tabs from './src/navigation/Tabs';
+import { AuthProvider, useAuth } from './src/context/AuthContext';
+import AuthScreen from './src/screens/AuthScreen';
+
+function Root() {
+  const { sessionLoading, session } = useAuth();
+
+  if (sessionLoading) {
+    return <View style={styles.container} />;
+  }
+
+  return (
+    <NavigationContainer>
+      {session ? <Tabs /> : <AuthScreen />}
+    </NavigationContainer>
+  );
+}
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <AuthProvider>
+      <Root />
       <StatusBar style="auto" />
-    </View>
+    </AuthProvider>
   );
 }
 
@@ -14,7 +32,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
+import 'react-native-gesture-handler';
