@@ -26,7 +26,7 @@ export default function ProfileScreen() {
 
   const user = session?.user;
   const name = user?.user_metadata?.name || user?.email || 'User';
-  const avatar = user?.user_metadata?.avatar_url || null;
+  const [avatarUrl, setAvatarUrl] = useState(user?.user_metadata?.avatar_url || null);
 
   const fetchPosts = async () => {
     const { data } = await supabase
@@ -40,6 +40,11 @@ export default function ProfileScreen() {
   useEffect(() => {
     fetchPosts();
   }, []);
+
+  // Keep local avatar URL in sync with session metadata when it changes
+  useEffect(() => {
+    setAvatarUrl(user?.user_metadata?.avatar_url || null);
+  }, [user?.user_metadata?.avatar_url]);
 
   const pickImageAsync = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -68,10 +73,14 @@ export default function ProfileScreen() {
         });
       if (error) throw error;
       const { data: publicUrl } = supabase.storage.from(AVATARS_BUCKET).getPublicUrl(data.path);
+      // Add cache-busting query param so the Image fetches the fresh upload immediately
+      const freshUrl = `${publicUrl.publicUrl}?t=${Date.now()}`;
       const { error: updateError } = await supabase.auth.updateUser({
-        data: { avatar_url: publicUrl.publicUrl },
+        data: { avatar_url: freshUrl },
       });
       if (updateError) throw updateError;
+      // Immediately reflect the change in UI without waiting for session refresh
+      setAvatarUrl(freshUrl);
       Alert.alert('Avatar updated', 'Your profile picture has been updated.');
     } catch (e) {
       Alert.alert('Avatar error', e.message + '\nEnsure a public bucket named "avatars" exists.');
@@ -83,8 +92,8 @@ export default function ProfileScreen() {
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
       <View style={styles.headerRow}>
-        {avatar ? (
-          <Image source={{ uri: avatar }} style={styles.avatar} />
+        {avatarUrl ? (
+          <Image source={{ uri: avatarUrl }} style={styles.avatar} />
         ) : (
           <View style={[styles.avatar, styles.avatarFallback]} />
         )}
