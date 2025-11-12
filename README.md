@@ -94,6 +94,26 @@ Framez is a simple, Instagram-inspired social app built with Expo (React Native)
 - Expo Go: use the QR code from `npx expo start` to test on devices.
 - Appetize.io: build a web preview or use Expo-generated bundles to upload and share a live demo.
 
+## Builds (EAS)
+
+- Prerequisites:
+  - Install CLI: `npm i -g eas-cli`
+  - Log in: `eas login`
+  - Link project: `eas init` (already configured via `extra.eas.projectId`)
+
+- Android APK builds:
+  - Development (internal): `eas build -p android --profile development`
+  - Preview (internal): `eas build -p android --profile preview`
+  - Production APK: `eas build -p android --profile production-apk`
+
+- iOS builds:
+  - `eas build -p ios --profile production` (requires Apple credentials)
+
+- Submit (optional):
+  - Configure `submit` in `eas.json` and run: `eas submit -p android --profile production`
+
+Profiles are defined in `eas.json`. `production-apk` is added specifically to generate a distributable APK for Android.
+
 
 ## Backend Choice
 
