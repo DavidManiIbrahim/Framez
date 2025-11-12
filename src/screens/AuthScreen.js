@@ -22,7 +22,9 @@ export default function AuthScreen() {
       {mode === 'signup' && (
         <TextInput placeholder="Name" value={name} onChangeText={setName} style={[styles.input, { color: colors.text, borderColor: dark ? '#444' : '#ddd' }]} placeholderTextColor={dark ? '#aaa' : '#888'} />
       )}
+      <Text>Email:</Text>
       <TextInput placeholder="Email" autoCapitalize="none" value={email} onChangeText={setEmail} style={[styles.input, { color: colors.text, borderColor: dark ? '#444' : '#ddd' }]} placeholderTextColor={dark ? '#aaa' : '#888'} />
+      <Text>Password:</Text>
       <TextInput placeholder="Password" secureTextEntry value={password} onChangeText={setPassword} style={[styles.input, { color: colors.text, borderColor: dark ? '#444' : '#ddd' }]} placeholderTextColor={dark ? '#aaa' : '#888'} />
       <Button title={mode === 'login' ? 'Log In' : 'Sign Up'} onPress={onSubmit} />
       <View style={{ height: 12 }} />
