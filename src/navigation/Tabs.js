@@ -16,14 +16,14 @@ export default function Tabs() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerTitleAlign: 'center',
-        headerTintColor: theme === 'dark' ? '#fff' : undefined,
-        tabBarActiveTintColor: theme === 'dark' ? '#fff' : undefined,
-        tabBarInactiveTintColor: theme === 'dark' ? '#aaa' : undefined,
+        headerTintColor: theme === 'dark' ? '#fff' : '#000',
+        tabBarActiveTintColor: theme === 'dark' ? '#fff' : '#000',
+        tabBarInactiveTintColor: theme === 'dark' ? '#aaa' : '#666',
         headerRight: () => (
           <Ionicons
             name={theme === 'dark' ? 'sunny' : 'moon'}
             size={22}
-            color={'#fff'}
+            color={theme === 'dark' ? '#fff' : '#000'}
             style={{ marginRight: 16 }}
             onPress={toggleTheme}
           />
