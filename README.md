@@ -100,3 +100,11 @@ Framez is a simple, Instagram-inspired social app built with Expo (React Native)
 - Backend: Supabase (Auth, Postgres, Storage, Realtime)
 - Rationale: rapid setup, first-class auth and storage with simple client SDK.
 
+## Assets & Icons
+
+- App icon: `assets/icon.png` (square, recommended 1024×1024). Used for both iOS and Android builds via `ios.icon` and `android.icon` in `app.json`.
+- Android adaptive icon: `assets/adaptive-icon.png` (transparent foreground with background color in `app.json`).
+- Splash image: `assets/splash-icon.png` (`splash.image` with `resizeMode: contain`).
+- Web favicon: `assets/favicon.png`.
+
+To customize platform icons, replace the files above and adjust paths in `app.json`. Store marketing assets (App Store marketing icon, Play Store feature graphic) are uploaded directly in their respective consoles and aren’t controlled via `app.json`.
