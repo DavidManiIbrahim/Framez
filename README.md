@@ -42,15 +42,17 @@ Framez is a simple, Instagram-inspired social app built with Expo (React Native)
    - In the Supabase Dashboard, open SQL editor and run:
      - `supabase/schema.sql` (full schema + bucket)
      - `supabase/rls.sql` (RLS policies for tables and storage)
+     - `supabase/derived_from_app.sql` (derived tables/views from app logic)
+     - `supabase/avatars.sql` (avatars table with default avatars)
      - Alternatively, you can run `supabase/posts_minimal.sql` then `supabase/rls.sql`.
 
 4. Start the app:
 
    ```bash
-   npx expo start --web --port 19010
+   npx expo start 
    ```
 
-   - Web: open `http://localhost:19010/`
+   - Web: open `http://localhost:8081/`
    - Expo Go (mobile): scan the QR from the terminal (use the IP shown).
 
 5. Optional: Dark mode
@@ -92,22 +94,9 @@ Framez is a simple, Instagram-inspired social app built with Expo (React Native)
 - Expo Go: use the QR code from `npx expo start` to test on devices.
 - Appetize.io: build a web preview or use Expo-generated bundles to upload and share a live demo.
 
-## Demo & Links
-
-- Demo video: Add your 2–3 minute demo link here.
-- Appetize link: Add your hosted Appetize link here.
 
 ## Backend Choice
 
 - Backend: Supabase (Auth, Postgres, Storage, Realtime)
 - Rationale: rapid setup, first-class auth and storage with simple client SDK.
 
-## Notes
-
-- Secrets: `.env` is gitignored; do not commit real keys.
-- Buckets: if you change bucket names, update `.env` and re-run `supabase/rls.sql` to ensure policies match.
-- Error troubleshooting:
-  - Ensure environment variables are loaded (restart the dev server after changes).
-  - Confirm buckets exist and are public.
-  - Verify RLS policies are applied and `auth.uid()` is available.
-  - If dark mode doesn’t toggle, confirm the header button is visible and try reloading the app.
